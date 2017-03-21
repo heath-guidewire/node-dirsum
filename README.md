@@ -75,6 +75,37 @@ returned `Hashes` object, a `hash` which is the hash of hashes, and `files`,
 which is a key/value pairing of filename to hash.  Each file might be another
 object, which indicates there was a directory tree encountered.
 
+### Skipping Files/Directories Usage
+
+There is an additional parameter to the method, an `ignoreCallback` function that can be provided to allow the algorithm to skip over certain files or directories.
+This callback has the signature: `function(path, filename)`.  An example is as follows:
+
+    var dirsum = require('../lib/dirsum');
+
+    dirsum.digest('/your/tree', 'sha1', function(err, hashes) {
+      if (err) throw err;
+      console.log(JSON.stringify(hashes, null, 2));
+    }, function(path, filename) {
+      // ignore any files starting with '.'
+      if (filename.indexOf('.') === 0) {
+        return true;
+      }
+      return false;
+    });
+
+### NOTES
+
+If the `method` parameter (i.e. the second parameter) is not passed as a string, the `callback` and `ignoreCallback` are effectively shifted left respectively.
+In other words the signature for the `digest` method looks either like this:
+
+    dirsum.digest(path : string, method : string, callback: function(err, hashes), ignoreCallback : function(path, filename));
+
+OR
+
+    dirsum.digest(path : string, callback : function(err, hashes), ignoreCallback : function(path, filename));
+
+Finally, the file read implementation uses streams so that large files are NOT read-entirely into memory.
+
 ## Installation
 
     npm install dirsum
