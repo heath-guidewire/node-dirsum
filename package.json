@@ -1,7 +1,7 @@
 {
   "name": "dirsum",
   "description": "A small library that computes checksums of directory trees",
-  "version": "0.1.3-gwre",
+  "version": "0.1.2",
   "repository": {
     "type": "git",
     "url": "git://github.com/mcavage/node-dirsum.git"
@@ -11,12 +11,6 @@
   "scripts": {
     "test": "jshint lib tst/dirsum.test.js && node tst/dirsum.test.js"
   },
-  "maintainers": [
-    {
-      "name": "Heath Chiavettone",
-      "url": "https://github.com/heath-guidewire"
-    }
-  ],
   "devDependencies": {
     "jshint": ">=0.1.9"
   },
